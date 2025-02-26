@@ -1,39 +1,35 @@
+import java.util.Random;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        Scanner teclado = new Scanner(System.in);
+        System.out.println("");
+        System.out.println("    ****** EJERCICIO DADOS ******");
 
-        int peso;
-        double estatura, imc;
+        int min = 2;
+        int max = 100;
 
+        Random aleatorio = new Random();
 
-        System.out.println("    ------ ÍNDICE DE MASA CORPORAL ------");
-        do{
-            System.out.println("    Dígite su peso (en kilogramos) actual: ");
-            peso = teclado.nextInt();
-        }while(peso<=0);
-        do{
-            System.out.println("    Dígite su estatura (en metros) actual: ");
-            estatura = teclado.nextDouble();
-        }while(estatura<=0);
+        int lanzada = aleatorio.nextInt((max - min + 1))+min;
+        System.out.println("    Los dados se lanzaron "+ lanzada + " veces");
 
-        imc = peso / (estatura*estatura);
-        System.out.println("    Su Índice de Masa Corporal es de: " + imc);
+        int minCara = 1;
+        int maxCara = 6;
+        int sumaD1 = 0;
+        int sumaD2 = 0;
 
-        if(imc<=18.49){
-            System.out.println("    Según su masa corporal, su clasificación es: BAJO");
-        }else if (imc>=18.50 && imc<=24.99){
-            System.out.println("    Según su masa corporal, su clasificación es: NORMAL");
-        }else if (imc>=25 && imc<=29.99){
-            System.out.println("    Según su masa corporal, su clasificación es: SOBREPESO");
-        }else if (imc>=30 && imc<=34.99){
-            System.out.println("    Según su masa corporal, su clasificación es: OBESIDAD LEVE");
-        }else if (imc>=35 && imc<=39.99){
-            System.out.println("    Según su masa corporal, su clasificación es: OBESIDAD MEDIA");
-        }else{
-            System.out.println("    Según su masa corporal, su clasificación es: OBESIDAD MÓRBIDA");
+        for(int i=0; i<= lanzada; i++){
+            int tirada1 = aleatorio.nextInt((maxCara - minCara + 1))+ minCara;
+            int tirada2 = aleatorio.nextInt((maxCara - minCara + 1))+ minCara;
+
+            sumaD1 = sumaD1 + tirada1;
+            sumaD2 = sumaD2 + tirada2;
+            System.out.println("    " + tirada1 + " | " + tirada2);
         }
+
+        System.out.println("----- SUMA -----");
+        System.out.println("    " + sumaD1 + "|" + sumaD2);
 
     }
 }
