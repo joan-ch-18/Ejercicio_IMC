@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
+        //Dados
         System.out.println("");
         System.out.println("    ****** EJERCICIO DADOS ******");
 
