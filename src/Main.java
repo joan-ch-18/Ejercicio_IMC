@@ -11,7 +11,6 @@ public class Main {
         int max = 3;
         boolean cambio = true;
 
-        //APUESTA Y GANA
         System.out.println("");
         System.out.println("    ****** EJERCICIO APUESTA Y GANA ******");
         System.out.println("    Dígite el valor que desea agregar: ");
@@ -36,7 +35,6 @@ public class Main {
                     System.out.println("    Te quedaste con un saldo de: "+saldo);
                     cambio = false;
                 }
-
             } else if (sorteo == 2) {
                 saldo = saldo/2;
                 System.out.println("    Nuevo saldo, perdió la mitad: "+saldo);
@@ -60,6 +58,5 @@ public class Main {
                 cambio = false;
             }
         }while (cambio);
-
     }
 }
