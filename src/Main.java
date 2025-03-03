@@ -3,34 +3,64 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        //DADOS
-        System.out.println("");
-        System.out.println("    ****** EJERCICIO DADOS ******");
-
-        int min = 2;
-        int max = 100;
-
+        Scanner teclado = new Scanner(System.in);
         Random aleatorio = new Random();
+        double saldo;
+        int opc;
+        boolean cambio = true;
+        int min = 1;
+        int max = 3;
+        int sorteo;
 
-        int lanzada = aleatorio.nextInt((max - min + 1))+min;
-        System.out.println("    Los dados se lanzaron "+ lanzada + " veces");
+        //APUESTA Y GANA
+        System.out.println("");
+        System.out.println("    ****** EJERCICIO APUESTA Y GANA ******");
+        System.out.println("    Dígite el valor que desea agregar: ");
+        saldo = teclado.nextInt();
 
-        int minCara = 1;
-        int maxCara = 6;
-        int sumaD1 = 0;
-        int sumaD2 = 0;
+        do {
+            sorteo = aleatorio.nextInt((max - min + 1)) + min;
+            System.out.println("    Número de sorteo: " + sorteo + " ");
+            if (sorteo == 1) {
+                saldo = saldo * 2;
+                System.out.println("    Nuevo saldo, duplicó el valor: "+saldo);
+                System.out.println("""
+                         ¿Desea seguir jugando?
+                         1. Seguir.
+                         2. Salir.
+                                """ );
+                opc = teclado.nextInt();
+                if(opc == 1){
+                    sorteo = aleatorio.nextInt((max - min + 1)) + min;
+                    continue;
+                }else{
+                    System.out.println("    Te quedaste con un saldo de: "+saldo);
+                    cambio = false;
+                }
 
-        for(int i=0; i<= lanzada; i++){
-            int tirada1 = aleatorio.nextInt((maxCara - minCara + 1))+ minCara;
-            int tirada2 = aleatorio.nextInt((maxCara - minCara + 1))+ minCara;
-
-            sumaD1 = sumaD1 + tirada1;
-            sumaD2 = sumaD2 + tirada2;
-            System.out.println("    " + tirada1 + " | " + tirada2);
-        }
-
-        System.out.println("----- SUMA -----");
-        System.out.println("    " + sumaD1 + "|" + sumaD2);
+            } else if (sorteo == 2) {
+                saldo = saldo/2;
+                System.out.println("    Nuevo saldo, perdió la mitad: "+saldo);
+                System.out.println("""
+                                ¿Desea seguir jugando?
+                                1. Seguir.
+                                2. Salir.
+                                """ );
+                opc = teclado.nextInt();
+                if(opc == 1){
+                    sorteo = aleatorio.nextInt((max - min + 1)) + min ;
+                    continue;
+                }else{
+                    System.out.println("    Te quedaste con un saldo de: "+saldo);
+                    cambio = false;
+                }
+            } else {
+                saldo -= saldo;
+                System.out.println("    Saldo: "+saldo);
+                System.out.println("    Perdió todo :(");
+                cambio = false;
+            }
+        }while (cambio);
 
     }
 }
