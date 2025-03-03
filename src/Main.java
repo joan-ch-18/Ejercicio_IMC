@@ -6,11 +6,10 @@ public class Main {
         Scanner teclado = new Scanner(System.in);
         Random aleatorio = new Random();
         double saldo;
-        int opc;
-        boolean cambio = true;
+        int opc, sorteo;
         int min = 1;
         int max = 3;
-        int sorteo;
+        boolean cambio = true;
 
         //APUESTA Y GANA
         System.out.println("");
