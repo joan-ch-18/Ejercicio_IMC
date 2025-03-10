@@ -3,7 +3,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
         int opc;
-        double C, F, K, R, Re, operar;
+        double C, F, K, R, operar;
         boolean cambio = true;
         do{
             System.out.println("    * * * MENÚ DE CONVERSIONES * * *");
