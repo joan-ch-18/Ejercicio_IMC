@@ -2,151 +2,91 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-        int opc;
-        double C, F, K, R, operar;
+        int numLlamadasLocal=0, numLlamadasLargaDistancia=0, numLlamadasCelular=0;
+        int totalNumLlamadas, totalMinLlamadas;
+        int minLocal= 0, minLargaDistancia= 0, minCelular= 0;
+        double minLlamadaLocal = 50;
+        double minLlamadaLargaDistancia = 350;
+        double minLlamadaCelular = 150;
+        double totalLocal = 0, totalLargaDistancia = 0, totalCelular = 0, totalCosto;
+        int opc, opc2;
         boolean cambio = true;
+
+        System.out.println(" * * * * PARCIAL EMPRESA TELEFÓNICA * * * *");
         do{
-            System.out.println("    * * * MENÚ DE CONVERSIONES * * *");
             System.out.println("""
-                        1. Celsius a Fahrenheit.
-                        2. Celsius a Kelvin.
-                        3. Celsius a Rankine.
-                        4. Celsius a Réaumur.
-                        5. Fahrenheit a Celsius.
-                        6. Fahrenheit a Kelvin.
-                        7. Fahrenheit a Rankine.
-                        8. Fahrenheit a Réaumur.
-                        9. Kelvin a Celsius.
-                        10. Kelvin a Fahrenheit.
-                        11. Kelvin a Rankine.
-                        12. Kelvin a Réaumur.
-                        13. Rankine a Celsius.
-                        14. Rankine a Fahrenheit.
-                        15. Rankine a Kelvin.
-                        16. Rankine a Réaumur.
-                        17. Salir.
+                    + + + MENÚ + + +
+                    1. Líneas Telefónicas.
+                    2. Detalles.
+                    3. Salir.
                     """);
-            System.out.println("    Dígite la opción que desea realizar: ");
             opc = teclado.nextInt();
             switch (opc){
                 case 1 -> {
-                    System.out.println("    Dígite el número de grados Celsius: ");
-                    C = teclado.nextDouble();
-                    operar = (C*1.8)+32;
-                    System.out.println("    "+C+"° Celsius a Fahrenheit es: "+operar+"°");
-                    System.out.println("");
+                    System.out.println("""
+                        Líneas Disponibles:
+                        1. Local.
+                        2. Larga Distancia.
+                        3. Celular.
+                        ¿Qué línea telefónica desea escoger?
+                    """);
+                    opc2 = teclado.nextInt();
+                    if (opc2 == 1){
+                        numLlamadasLocal ++;
+                        System.out.println("    Se ha agregado una llamada local, ¿Cuántos minutos consumió?");
+                        minLocal = teclado.nextInt();
+                        if (minLocal >= 0) {
+                            totalLocal = minLocal * minLlamadaLocal;
+                        } else {
+                            numLlamadasLocal = 0;
+                            System.out.println("    Dígite un número válido");
+                        }
+                    } else if (opc2 == 2) {
+                        numLlamadasLargaDistancia ++;
+                        System.out.println("    Se ha agregado una llamada larga distancia, ¿Cuántos minutos consumió?");
+                        minLargaDistancia = teclado.nextInt();
+                        if (minLargaDistancia >= 0) {
+                            totalLargaDistancia = minLargaDistancia * minLlamadaLargaDistancia;
+                        } else {
+                            numLlamadasLargaDistancia = 0;
+                            System.out.println("    Dígite un número válido");
+                        }
+                    }else if (opc2 == 3){
+                        numLlamadasCelular ++;
+                        System.out.println("    Se ha agregado una llamada celular, ¿Cuántos minutos consumió?");
+                        minCelular = teclado.nextInt();
+                        if (minCelular >= 0) {
+                            totalCelular = minCelular * minLlamadaCelular;
+                        } else {
+                            numLlamadasCelular = 0;
+                            System.out.println("    Dígite un número válido");
+                        }
+                    }else {
+                        System.out.println("    # # # OPCIÓN NO VÁLIDA # # #");
+                    }
                 }
                 case 2 -> {
-                    System.out.println("    Dígite el número de grados Celsius: ");
-                    C = teclado.nextDouble();
-                    operar = C+273.15;
-                    System.out.println("    "+C+"° Celsius a Kelvin es: "+operar+"°");
-                    System.out.println("");
+                    totalNumLlamadas = (numLlamadasLocal + numLlamadasLargaDistancia + numLlamadasCelular);
+                    totalMinLlamadas = (minLocal + minLargaDistancia + minCelular);
+                    totalCosto = (totalLocal + totalLargaDistancia + totalCelular);
+                    if (totalMinLlamadas >= 0){
+                        totalMinLlamadas = (minLocal + minLargaDistancia + minCelular);
+                    } else{
+                        totalMinLlamadas = 0;
+                    }
+                    System.out.println("    $ $ $ $ $ DETALLES $ $ $ $ $");
+                    System.out.println("    Número de llamadas realizadas: "+totalNumLlamadas);
+                    System.out.println("    Total minutos consumidos: "+totalMinLlamadas);
+                    System.out.println("    Llamadas Local: "+ numLlamadasLocal);
+                    System.out.println("    Llamadas Larga Distancia: "+ numLlamadasLargaDistancia);
+                    System.out.println("    Llamadas Celular: "+ numLlamadasCelular);
+                    System.out.println("    Costo Total: "+ totalCosto);
+                    System.out.println("    - - - - - - - - - - - - - - -");
                 }
-                case 3 -> {
-                    System.out.println("    Dígite el número de grados Celsius: ");
-                    C = teclado.nextDouble();
-                    operar = (C+273.15)*1.8;
-                    System.out.println("    "+C+"° Celsius a Rankine es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 4 -> {
-                    System.out.println("    Dígite el número de grados Celsius: ");
-                    C = teclado.nextDouble();
-                    operar = C*0.8;
-                    System.out.println("    "+C+"° Celsius a Réaumur es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 5 -> {
-                    System.out.println("    Dígite el número de grados Fahrenheit: ");
-                    F = teclado.nextDouble();
-                    operar = (F-32)*0.55;
-                    System.out.println("    "+F+"° Fahrenheit a Celsius es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 6 -> {
-                    System.out.println("    Dígite el número de grados Fahrenheit: ");
-                    F = teclado.nextDouble();
-                    operar = (F-32)*0.55+273.15;
-                    System.out.println("    "+F+"° Fahrenheit a Kelvin es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 7 -> {
-                    System.out.println("    Dígite el número de grados Fahrenheit: ");
-                    F = teclado.nextDouble();
-                    operar = F+459.67;
-                    System.out.println("    "+F+"° Fahrenheit a Rankine es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 8 -> {
-                    System.out.println("    Dígite el número de grados Fahrenheit: ");
-                    F = teclado.nextDouble();
-                    operar = (F-32)*0.44;
-                    System.out.println("    "+F+"° Fahrenheit a Réaumur es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 9 -> {
-                    System.out.println("    Dígite el número de grados Kelvin: ");
-                    K = teclado.nextDouble();
-                    operar = K - 273.15;
-                    System.out.println("    "+K+"° Kelvin a Celsius es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 10 -> {
-                    System.out.println("    Dígite el número de grados Kelvin: ");
-                    K = teclado.nextDouble();
-                    operar = (K-273.15)*1.8+32;
-                    System.out.println("    "+K+"° Kelvin a Fahrenheit es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 11 -> {
-                    System.out.println("    Dígite el número de grados Kelvin: ");
-                    K = teclado.nextDouble();
-                    operar = K*1.8;
-                    System.out.println("    "+K+"° Kelvin a Rankine es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 12 -> {
-                    System.out.println("    Dígite el número de grados Kelvin: ");
-                    K = teclado.nextDouble();
-                    operar = (K-273.15)*0.8;
-                    System.out.println("    "+K+"° Kelvin a Réaumur es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 13 -> {
-                    System.out.println("    Dígite el número de grados Rankine: ");
-                    R = teclado.nextDouble();
-                    operar = (R-491.67)*0.555;
-                    System.out.println("    "+R+"° Rankine a Celsius es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 14 -> {
-                    System.out.println("    Dígite el número de grados Rankine: ");
-                    R = teclado.nextDouble();
-                    operar = R-459.67;
-                    System.out.println("    "+R+"° Rankine a Fahrenheit es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 15 -> {
-                    System.out.println("    Dígite el número de grados Rankine: ");
-                    R = teclado.nextDouble();
-                    operar = R*0.555;
-                    System.out.println("    "+R+"° Rankine a Kelvin es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 16 -> {
-                    System.out.println("    Dígite el número de grados Rankine: ");
-                    R = teclado.nextDouble();
-                    operar = (R-491.67)*0.444;
-                    System.out.println("    "+R+"° Rankine a Réaumur es: "+operar+"°");
-                    System.out.println("");
-                }
-                case 17 ->{
+                case 3 ->{
                     cambio = false;
                 }
             }
         }while (cambio);
-
-
     }
 }
