@@ -9,7 +9,7 @@ public class Main {
         double minLlamadaLargaDistancia = 350;
         double minLlamadaCelular = 150;
         double totalLocal = 0, totalLargaDistancia = 0, totalCelular = 0, totalCosto;
-        int opc, opc2;
+        int opc, opc2, opc3;
         boolean cambio = true;
 
         System.out.println(" * * * * PARCIAL EMPRESA TELEFÓNICA * * * *");
@@ -82,6 +82,24 @@ public class Main {
                     System.out.println("    Llamadas Celular: "+ numLlamadasCelular);
                     System.out.println("    Costo Total: "+ totalCosto);
                     System.out.println("    - - - - - - - - - - - - - - -");
+                    System.out.println("""
+                                ¿Desea reiniciar?
+                                1. SI
+                                2. NO
+                            """);
+                    opc3 = teclado.nextInt();
+                    if (opc3 == 1){
+                        numLlamadasLocal = 0;
+                        numLlamadasLargaDistancia = 0;
+                        numLlamadasCelular = 0;
+                        minLocal = 0;
+                        minLargaDistancia = 0;
+                        minCelular = 0;
+                        totalLocal = 0;
+                        totalLargaDistancia = 0;
+                        totalCelular = 0;
+                    } else {
+                    }
                 }
                 case 3 ->{
                     cambio = false;
