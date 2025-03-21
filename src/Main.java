@@ -1,110 +1,83 @@
 import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-        int numLlamadasLocal=0, numLlamadasLargaDistancia=0, numLlamadasCelular=0;
-        int totalNumLlamadas, totalMinLlamadas;
-        int minLocal= 0, minLargaDistancia= 0, minCelular= 0;
-        double minLlamadaLocal = 50;
-        double minLlamadaLargaDistancia = 350;
-        double minLlamadaCelular = 150;
-        double totalLocal = 0, totalLargaDistancia = 0, totalCelular = 0, totalCosto;
-        int opc, opc2, opc3;
-        boolean cambio = true;
 
-        System.out.println(" * * * * PARCIAL EMPRESA TELEFÓNICA * * * *");
-        do{
-            System.out.println("""
-                    + + + MENÚ + + +
-                    1. Líneas Telefónicas.
-                    2. Detalles.
-                    3. Salir.
-                    """);
-            opc = teclado.nextInt();
-            switch (opc){
-                case 1 -> {
-                    System.out.println("""
-                        Líneas Disponibles:
-                        1. Local.
-                        2. Larga Distancia.
-                        3. Celular.
-                        ¿Qué línea telefónica desea escoger?
-                    """);
-                    opc2 = teclado.nextInt();
-                    if (opc2 == 1){
-                        numLlamadasLocal ++;
-                        System.out.println("    Se ha agregado una llamada local, ¿Cuántos minutos consumió?");
-                        minLocal = teclado.nextInt();
-                        if (minLocal >= 0) {
-                            totalLocal = minLocal * minLlamadaLocal;
-                        } else {
-                            numLlamadasLocal = 0;
-                            System.out.println("    Dígite un número válido");
-                        }
-                    } else if (opc2 == 2) {
-                        numLlamadasLargaDistancia ++;
-                        System.out.println("    Se ha agregado una llamada larga distancia, ¿Cuántos minutos consumió?");
-                        minLargaDistancia = teclado.nextInt();
-                        if (minLargaDistancia >= 0) {
-                            totalLargaDistancia = minLargaDistancia * minLlamadaLargaDistancia;
-                        } else {
-                            numLlamadasLargaDistancia = 0;
-                            System.out.println("    Dígite un número válido");
-                        }
-                    }else if (opc2 == 3){
-                        numLlamadasCelular ++;
-                        System.out.println("    Se ha agregado una llamada celular, ¿Cuántos minutos consumió?");
-                        minCelular = teclado.nextInt();
-                        if (minCelular >= 0) {
-                            totalCelular = minCelular * minLlamadaCelular;
-                        } else {
-                            numLlamadasCelular = 0;
-                            System.out.println("    Dígite un número válido");
-                        }
-                    }else {
-                        System.out.println("    # # # OPCIÓN NO VÁLIDA # # #");
-                    }
-                }
-                case 2 -> {
-                    totalNumLlamadas = (numLlamadasLocal + numLlamadasLargaDistancia + numLlamadasCelular);
-                    totalMinLlamadas = (minLocal + minLargaDistancia + minCelular);
-                    totalCosto = (totalLocal + totalLargaDistancia + totalCelular);
-                    if (totalMinLlamadas >= 0){
-                        totalMinLlamadas = (minLocal + minLargaDistancia + minCelular);
-                    } else{
-                        totalMinLlamadas = 0;
-                    }
-                    System.out.println("    $ $ $ $ $ DETALLES $ $ $ $ $");
-                    System.out.println("    Número de llamadas realizadas: "+totalNumLlamadas);
-                    System.out.println("    Total minutos consumidos: "+totalMinLlamadas);
-                    System.out.println("    Llamadas Local: "+ numLlamadasLocal);
-                    System.out.println("    Llamadas Larga Distancia: "+ numLlamadasLargaDistancia);
-                    System.out.println("    Llamadas Celular: "+ numLlamadasCelular);
-                    System.out.println("    Costo Total: "+ totalCosto);
-                    System.out.println("    - - - - - - - - - - - - - - -");
-                    System.out.println("""
-                                ¿Desea reiniciar?
-                                1. SI
-                                2. NO
-                            """);
-                    opc3 = teclado.nextInt();
-                    if (opc3 == 1){
-                        numLlamadasLocal = 0;
-                        numLlamadasLargaDistancia = 0;
-                        numLlamadasCelular = 0;
-                        minLocal = 0;
-                        minLargaDistancia = 0;
-                        minCelular = 0;
-                        totalLocal = 0;
-                        totalLargaDistancia = 0;
-                        totalCelular = 0;
-                    } else {
-                    }
-                }
-                case 3 ->{
-                    cambio = false;
+        class CuentaBancaria {
+            private String nombre;
+            private double saldo;
+
+            public CuentaBancaria(String nombre, double saldoInicial) {
+                this.nombre = nombre;
+                this.saldo = Math.max(saldoInicial, 0);
+            }
+
+            public void depositar(double cantidad) {
+                if (cantidad > 0) {
+                    saldo += cantidad;
+                    System.out.println("Depósito exitoso. Nuevo saldo: $" + saldo);
+                } else {
+                    System.out.println("La cantidad a depositar debe ser mayor a 0.");
                 }
             }
-        }while (cambio);
+
+            public void retirar(double cantidad) {
+                if (cantidad > 0 && cantidad <= saldo) {
+                    saldo -= cantidad;
+                    System.out.println("Retiro exitoso. Nuevo saldo: $" + saldo);
+                } else if (cantidad <= 0) {
+                    System.out.println("La cantidad a retirar debe ser mayor a 0.");
+                } else {
+                    System.out.println("Fondos insuficientes.");
+                }
+            }
+
+            public void mostrarSaldo() {
+                System.out.println("Saldo actual de " + nombre + ": $" + saldo);
+            }
+        }
+
+        boolean opcion = true;
+        double cantidad;
+
+        System.out.print("Ingrese su nombre: ");
+        String nombre = teclado.nextLine();
+
+        System.out.print("Ingrese el saldo inicial: ");
+        double saldoInicial = teclado.nextDouble();
+
+        CuentaBancaria cuenta = new CuentaBancaria(nombre, saldoInicial);
+
+        do {
+            System.out.println("""
+                    \n--- Menú de Cuenta Bancaria ---
+                    1. Depositar dinero
+                    2. Retirar dinero
+                    3. Consultar saldo
+                    4. Salir
+                    Dígite una opción válida: 
+                    """);
+            int seleccion = teclado.nextInt();
+
+            switch (seleccion) {
+                case 1->{
+                    System.out.print("Ingrese la cantidad a depositar: ");
+                    cantidad = teclado.nextDouble();
+                    cuenta.depositar(cantidad);
+                }
+                case 2->{
+                    System.out.print("Ingrese la cantidad a retirar: ");
+                    cantidad = teclado.nextDouble();
+                    cuenta.retirar(cantidad);
+                }
+                case 3-> {
+                    cuenta.mostrarSaldo();
+                }
+                case 4-> {
+                    opcion = false;
+                }
+            }
+        } while (opcion);
     }
 }
