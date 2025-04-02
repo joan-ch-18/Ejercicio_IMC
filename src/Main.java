@@ -1,83 +1,92 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
+        List<Libro> lstLibros = new ArrayList<>();
 
-        class CuentaBancaria {
-            private String nombre;
-            private double saldo;
+        int opc;
+        String t1;
+        String a1;
+        double p1;
+        double pe1;
+        double ta1;
+        boolean cambio = true;
 
-            public CuentaBancaria(String nombre, double saldoInicial) {
-                this.nombre = nombre;
-                this.saldo = Math.max(saldoInicial, 0);
-            }
-
-            public void depositar(double cantidad) {
-                if (cantidad > 0) {
-                    saldo += cantidad;
-                    System.out.println("Depósito exitoso. Nuevo saldo: $" + saldo);
-                } else {
-                    System.out.println("La cantidad a depositar debe ser mayor a 0.");
-                }
-            }
-
-            public void retirar(double cantidad) {
-                if (cantidad > 0 && cantidad <= saldo) {
-                    saldo -= cantidad;
-                    System.out.println("Retiro exitoso. Nuevo saldo: $" + saldo);
-                } else if (cantidad <= 0) {
-                    System.out.println("La cantidad a retirar debe ser mayor a 0.");
-                } else {
-                    System.out.println("Fondos insuficientes.");
-                }
-            }
-
-            public void mostrarSaldo() {
-                System.out.println("Saldo actual de " + nombre + ": $" + saldo);
-            }
-        }
-
-        boolean opcion = true;
-        double cantidad;
-
-        System.out.print("Ingrese su nombre: ");
-        String nombre = teclado.nextLine();
-
-        System.out.print("Ingrese el saldo inicial: ");
-        double saldoInicial = teclado.nextDouble();
-
-        CuentaBancaria cuenta = new CuentaBancaria(nombre, saldoInicial);
+        System.out.println("    - - - - EJERCICIO LIBROS - - - -");
 
         do {
             System.out.println("""
-                    \n--- Menú de Cuenta Bancaria ---
-                    1. Depositar dinero
-                    2. Retirar dinero
-                    3. Consultar saldo
-                    4. Salir
-                    Dígite una opción válida: 
-                    """);
-            int seleccion = teclado.nextInt();
+                    + + + + MENÚ + + + +
+                    1. Libro Impreso.
+                    2. Libro Digital.
+                    3. Mostrar Información.
+                    4. Salir.
+                """);
+            System.out.print("    Dígite la opción: ");
+            opc = teclado.nextInt();
+            switch (opc){
+                case 1 -> {
+                    teclado.nextLine();
+                    System.out.print("    Dígite el título del libro: ");
+                    t1 = teclado.nextLine();
+                    System.out.print("    Dígite el autor del libro: ");
+                    a1 = teclado.nextLine();
+                    System.out.print("    Dígite el precio del libro (en pesos colombianos): ");
+                    p1 = teclado.nextDouble();
+                    System.out.print("    Dígite el peso del libro (en gramos): ");
+                    pe1 = teclado.nextDouble();
+                    lstLibros.add(new LibroImpreso(t1,a1,p1,pe1));
+                }
+                case 2 -> {
+                    teclado.nextLine();
+                    System.out.print("    Dígite el título del libro: ");
+                    t1 = teclado.nextLine();
+                    System.out.print("    Dígite el autor del libro: ");
+                    a1 = teclado.nextLine();
+                    System.out.print("    Dígite el precio del libro (en pesos colombianos): ");
+                    p1 = teclado.nextDouble();
+                    System.out.print("    Dígite el tamaño del archivo del libro (en mega bytes): ");
+                    ta1 = teclado.nextDouble();
+                    lstLibros.add(new LibroDigital(t1,a1,p1,ta1));
+                }
+                case 3 -> {
+                    int l;
+                    System.out.println("""
+                                ¿Qué libros desea ver?
+                                1. Libros Impresos.
+                                2. Libros Digitales.
+                                3. Volver
+                            """);
+                    System.out.print("  Dígite una opción: ");
+                    l=teclado.nextInt();
+                    if(l==1){
+                        System.out.println("   #  #  #  #  #  #  #  #  #  #  #");
+                        System.out.println("    LIBROS IMPRESOS ");
+                        for (Libro libros : lstLibros) {
+                            if(libros instanceof LibroImpreso){
+                                System.out.println(libros.MostrarInfo());
+                            }
 
-            switch (seleccion) {
-                case 1->{
-                    System.out.print("Ingrese la cantidad a depositar: ");
-                    cantidad = teclado.nextDouble();
-                    cuenta.depositar(cantidad);
+                        }
+
+                    }if(l==2){
+                        System.out.println("   #  #  #  #  #  #  #  #  #  #  #");
+                        System.out.println("    LIBROS DIGITALES ");
+                        for (Libro libros : lstLibros) {
+                            if(libros instanceof LibroDigital){
+                                System.out.println(libros.MostrarInfo());
+                            }
+
+                        }
+                    }
                 }
-                case 2->{
-                    System.out.print("Ingrese la cantidad a retirar: ");
-                    cantidad = teclado.nextDouble();
-                    cuenta.retirar(cantidad);
+                    default -> {
+                        cambio = false;
+                    }
                 }
-                case 3-> {
-                    cuenta.mostrarSaldo();
-                }
-                case 4-> {
-                    opcion = false;
-                }
-            }
-        } while (opcion);
+        } while (cambio);
     }
 }
