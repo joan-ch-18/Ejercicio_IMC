@@ -1,5 +1,5 @@
 public class EmpleadoHoras extends Empleado{
-    private int salarioHora = 98000;
+    private int salarioHora;
     private int horasTrabajadas;
 
     public EmpleadoHoras() {
@@ -30,7 +30,7 @@ public class EmpleadoHoras extends Empleado{
                 "   Nombre:" + nombre + '\n' +
                         "   Edad:" + edad + '\n' +
                         "   Horas Trabajadas: " + horasTrabajadas + " hr" +'\n' +
-                        "   Pago por Hora ($98.000): $" + salarioHora*horasTrabajadas + " COP" + '\n';
+                        "   Pago por Hora: $" + salarioHora*horasTrabajadas + " COP" + '\n';
 
     }
 }

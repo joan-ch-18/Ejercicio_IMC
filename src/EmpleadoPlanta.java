@@ -1,5 +1,5 @@
 public class EmpleadoPlanta extends Empleado{
-    private int salarioFijo = 2100000;
+    private int salarioFijo;
 
     public EmpleadoPlanta() {
     }
