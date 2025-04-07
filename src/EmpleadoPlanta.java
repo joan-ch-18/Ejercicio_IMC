@@ -16,12 +16,10 @@ public class EmpleadoPlanta extends Empleado{
         this.salarioFijo = salarioFijo;
     }
 
-    @Override
-    public String toString() {
-        return "EmpleadoPlanta{" +
-                "salarioFijo=" + salarioFijo +
-                ", nombre='" + nombre + '\'' +
-                ", edad=" + edad +
-                '}';
+    public String MostrarInfo() {
+        return
+                "   Nombre:" + nombre + '\n' +
+                        "   Edad:" + edad + '\n' +
+                        "   Salario: $" + salarioFijo + " COP" +'\n';
     }
 }
