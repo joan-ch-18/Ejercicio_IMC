@@ -1,30 +1,27 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-
-        int opc, opc2, medio;
-        int votosC1 = 0;
-        int votosC2 = 0;
-        int votosC3 = 0;
-        int numVotosInternet = 0;
-        int numVotosRadio = 0;
-        int numVotosTelevision = 0;
-        double publicidadInternet = 700000;
-        double publicidadRadio = 200000;
-        double publicidadTelevision = 600000;
-        double costoCampaña;
-        double operar1, operar2, operar3;
-        int numVotosTotales;
         boolean cambio = true;
+        int opc, opc2, medio;
+        int totalVotos, sumaCostos;
+        double promedioCosto;
 
+        Candidato candidato1 = new Candidato("Joan Chindoy");
+        Candidato candidato2 = new Candidato("William Matallana");
+        Candidato candidato3 = new Candidato("Kevin Santos");
+
+        List<Candidato> candidatos = new ArrayList<>();
+        candidatos.add(candidato1);
+        candidatos.add(candidato2);
+        candidatos.add(candidato3);
 
         System.out.println("    - - - EJERCICIO CANDIDATOS - - -");
 
-        do{
+        do {
             System.out.println("""
                         * * * * MENÚ * * * *
                         1. Candidato #1 - Joan Chindoy.
@@ -37,55 +34,83 @@ public class Main {
             System.out.print("  Dígite el candidato por el cúal desea votar: ");
             opc = teclado.nextInt();
 
-            switch(opc){
-                case 1 ->{
-                    teclado.nextLine();
-                    votosC1 ++;
+            switch (opc) {
+                case 1, 2, 3 -> {
                     System.out.println("""
-                        * * * * JOAN CHINDOY * * * *
-                        1. Internet.
-                        2. Radio.
-                        3. Televisión.
-                        4. Volver.
-                    """);
-                    System.out.print("  Dígite el número del medio por el cúal fue influenciado: ");
+                            \n  ¿Por cuál medio fue influenciado el voto?
+                            1. Internet
+                            2. Radio
+                            3. Televisión
+                        """);
+                    System.out.print("  Dígite el número del medio: ");
                     medio = teclado.nextInt();
-                    if (medio == 1){
-                        numVotosInternet ++;
-                        operar1 = numVotosInternet * publicidadInternet;
-                    } else if (medio == 2){
-                        numVotosRadio ++;
-                        operar2 = numVotosRadio * publicidadRadio;
-                    } else if (medio == 3){
-                        numVotosTelevision ++;
-                        operar3 = numVotosTelevision * publicidadTelevision;
+
+                    if (medio == 1 || medio == 2 || medio == 3) {
+                        if (opc == 1) {
+                            candidato1.votar(medio);
+                        } else if (opc == 2) {
+                            candidato2.votar(medio);
+                        } else {
+                            candidato3.votar(medio);
+                        }
+                        System.out.println("    VOTO AGREGADO CORRECTAMENTE\n");
+                    } else {
+                        System.out.println("    OPCIÓN NO VALIDA\n");
                     }
+                }
 
-                }
-                case 2 ->{
-                    teclado.nextLine();
-
-                }
-                case 3 -> {
-                    teclado.nextLine();
-                }
-                case 4 ->{
+                case 4 -> {
                     System.out.println("""
-                                ¿De cúal Candidato desea ver la información?
-                                1. Candidato #1.
-                                2. Candidato #2.
-                                3. Candidato #3.
-                                4. Volver.
-                            """);
-                    System.out.print("  Dígite la opción: ");
+                            \n  ¿Qué información desea ver?
+                            1. Candidato #1 - Joan Chindoy.
+                            2. Candidato #2 - William Matallana.
+                            3. Candidato #3 - Kevin Santos.
+                            4. Información General.
+                        """);
+                    System.out.print("  Digite una opción: ");
                     opc2 = teclado.nextInt();
+                    totalVotos = candidato1.getTotalVotos() + candidato2.getTotalVotos() + candidato3.getTotalVotos();
 
+                    if (opc2 == 1) {
+                        System.out.println("\n  --- Información del Candidato 1 ---");
+                        System.out.println(candidato1.mostrarInfo());
+                        System.out.println("  Porcentaje de votos: " + candidato1.getPorcentaje(totalVotos) + "%\n");
+                    } else if (opc2 == 2) {
+                        System.out.println("\n  --- Información del Candidato 2 ---");
+                        System.out.println(candidato2.mostrarInfo());
+                        System.out.println("  Porcentaje de votos: " + candidato2.getPorcentaje(totalVotos) + "%\n");
+                    } else if (opc2 == 3) {
+                        System.out.println("\n  --- Información del Candidato 3 ---");
+                        System.out.println(candidato3.mostrarInfo());
+                        System.out.println("  Porcentaje de votos: " + candidato3.getPorcentaje(totalVotos) + "%\n");
+                    } else if (opc2 == 4) {
+                        System.out.println("\n  --- INFORMACIÓN GENERAL ---\n");
+                        System.out.println(candidato1.mostrarInfo());
+                        System.out.println("  Porcentaje de votos: " + candidato1.getPorcentaje(totalVotos) + "%\n");
+                        System.out.println(candidato2.mostrarInfo());
+                        System.out.println("  Porcentaje de votos: " + candidato2.getPorcentaje(totalVotos) + "%\n");
+                        System.out.println(candidato3.mostrarInfo());
+                        System.out.println("  Porcentaje de votos: " + candidato3.getPorcentaje(totalVotos) + "%\n");
+                        sumaCostos = candidato1.getCostoCampana() + candidato2.getCostoCampana() + candidato3.getCostoCampana();
+                        promedioCosto = sumaCostos / 3.0;
+                        System.out.println("    Costo promedio de campaña: $" + promedioCosto + "\n");
+                    } else {
+                        System.out.println("    OPCIÓN NO VÁLIDA\n");
+                    }
                 }
-                default -> {
+                case 5 -> {
+                    candidato1.reiniciarVotos();
+                    candidato2.reiniciarVotos();
+                    candidato3.reiniciarVotos();
+                    System.out.println("    URNAS VACIADAS\n");
+                }
+                case 6 -> {
+                    System.out.println("    HASTA LUEGO :)");
                     cambio = false;
                 }
-
+                default -> System.out.println(" # # # OPCIÓN NO VÁLIDA # # #\n");
             }
-        }while(cambio);
+
+        } while (cambio);
     }
 }
