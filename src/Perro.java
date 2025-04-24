@@ -24,9 +24,7 @@ public class Perro {
         this.placa = placa;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getNombre() { return nombre; }
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -52,12 +50,20 @@ public class Perro {
         this.tamano = tamano;
     }
 
-    public String mostrarInfo() {
-        return "\n Placa ='" + placa +
-                "\n Nombre ='" + nombre +
-                "\n Raza ='" + raza +
-                "\n Edad =" + edad +
-                "\n Tamaño ='" + tamano +
-                "\n Adoptado =" + adoptado;
+    public boolean isAdoptado() {
+        return adoptado;
+    }
+    public void setAdoptado(boolean adoptado) {
+        this.adoptado = adoptado;
+    }
+
+    @Override
+    public String toString() {
+        return "\n Placa = " + placa +
+                "\n Nombre = " + nombre +
+                "\n Raza = " + raza +
+                "\n Edad (en meses) = " + edad +
+                "\n Tamaño (en centímetros) = " + tamano +
+                "\n Adoptado = " + adoptado;
     }
 }

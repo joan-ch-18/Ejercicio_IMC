@@ -51,32 +51,40 @@ public class Persona {
         this.documento = documento;
     }
 
-    public void lista(){
-        List<Perro> lstPerros = new ArrayList<>();
+    public List<Perro> getlstPerros() {
+        return lstPerros;
     }
 
     public void adoptarPerro (Perro perro){
-        if (lstPerros.size()>3){
-            System.out.println("    No puede adoptar más perros");
+        if (perro.isAdoptado() == false) {
+            if (lstPerros.size() > 3) {
+                System.out.println("    No puede adoptar más perros");
+            } else {
+                lstPerros.add(perro);
+                perro.setAdoptado(true);
+            }
         } else {
-            lstPerros.add(perro);
+            System.out.println("    El perro ya ha sido ha adoptado");
         }
     }
 
     public Perro perroMasGrande (){
-            for (int i= 0; i<lstPerros.size(); i++){
-                if(lstPerros.get(i).getEdad()){
-
-                }
+        Perro perroG=null;
+        int edad =-1;
+        for(Perro perro : lstPerros){
+            if(perro.getEdad()>edad){
+                edad=perro.getEdad();
+                perroG=perro;
             }
+        }
+        return perroG;
     }
 
     @Override
     public String toString() {
-        return "\n Nombre='" + nombre +
-                "\n Apellido='" + apellido +
-                "\n Edad=" + edad +
-                "\n Documento='" + documento +
-                "\n Perros Adoptados=" + lstPerros;
+        return "\n Nombre = " + nombre +
+                "\n Apellido = " + apellido +
+                "\n Edad = " + edad +
+                "\n Documento = " + documento ;
     }
 }
